@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>陈嘉怡 | Personal Portfolio</title>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --accent: #0f172a;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+      --maxw: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f8fbff 0%, #f7f9fc 100%);
+      line-height: 1.7;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.78);
+      border-bottom: 1px solid rgba(229,231,235,0.8);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      gap: 16px;
+    }
+
+    .brand {
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 72px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-card, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 36px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.15;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .hero-text {
+      font-size: 16px;
+      color: #374151;
+      margin-bottom: 24px;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--accent);
+      border: 1px solid var(--line);
+    }
+
+    .profile-card {
+      padding: 28px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 24px;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      background: #eef2ff;
+    }
+
+    .profile-name {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 16px 0 6px;
+    }
+
+    .profile-role {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .info-list {
+      text-align: left;
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    section {
+      padding: 18px 0 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      margin: 0 0 18px;
+      color: var(--accent);
+    }
+
+    .section-desc {
+      color: var(--muted);
+      margin: -4px 0 22px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 18px;
+      border-left: 2px solid #dbeafe;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 7px;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .time {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .item-title {
+      margin: 4px 0 6px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .item-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .project-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    .project-meta {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      padding: 42px 0 60px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid, .grid-2, .project-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">陈嘉怡 · Portfolio</div>
+      <div class="nav-links">
+        <a href="#about">关于我</a>
+        <a href="#education">教育背景</a>
+        <a href="#experience">实习经历</a>
+        <a href="#projects">项目经历</a>
+        <a href="#skills">技能</a>
+        <a href="#contact">联系</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero container">
+    <div class="hero-grid">
+      <div class="hero-card">
+        <div class="tag">Applied Economics · Quant Research · Data Analysis</div>
+        <h1>你好，我是陈嘉怡</h1>
+        <div class="subtitle">金融背景 + 量化研究 + 数据分析方向的个人主页</div>
+        <div class="hero-text">
+          目前就读于武汉大学应用经济学（金融学方向）硕士，具有量化研究、行业研究与数据开发相关经历。
+          关注 <strong>Quant Research</strong>、<strong>Data Analysis</strong>、<strong>Strategy Research</strong> 等方向，
+          希望把研究、工程实现与业务理解结合起来，做出可落地的分析与策略。
+        </div>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#projects">查看项目</a>
+          <a class="btn btn-secondary" href="mailto:joychen@whu.edu.cn">联系我</a>
+        </div>
+      </div>
+
+      <div class="hero-card profile-card">
+        <img class="avatar" src="profile.png" alt="陈嘉怡照片" />
+        <div class="profile-name">陈嘉怡</div>
+        <div class="profile-role">量化研究 / 数据分析 / 金融学</div>
+        <div class="info-list">
+          <div><strong>电话：</strong>18986274936</div>
+          <div><strong>邮箱：</strong><a href="mailto:joychen@whu.edu.cn">joychen@whu.edu.cn</a></div>
+          <div><strong>学校：</strong>武汉大学</div>
+          <div><strong>方向：</strong>金融学、量化策略、数据治理</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <h2 class="section-title">关于我</h2>
+      <p class="section-desc">一个适合放在 GitHub Pages 的简洁版个人介绍页面。</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>个人简介</h3>
+          <p>
+            我具备金融工程、金融经济学、统计学与计量经济学基础，重视把研究逻辑、数据处理和实际应用串成完整闭环。
+            在实习和项目中，我做过 ETF 轮动、CTA 策略研究、因子挖掘 workflow、医疗数仓链路排查、
+            以及基于 Python / SQL 的数据分析与回测工作。
+          </p>
+        </div>
+        <div class="card">
+          <h3>我关注的方向</h3>
+          <div class="chips">
+            <span class="chip">Quant Research</span>
+            <span class="chip">ETF Rotation</span>
+            <span class="chip">CTA Strategy</span>
+            <span class="chip">Factor Mining</span>
+            <span class="chip">Python / SQL</span>
+            <span class="chip">Data Warehouse</span>
+            <span class="chip">Industry Research</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title">教育背景</h2>
+      <div class="card timeline">
+        <div class="timeline-item">
+          <div class="time">2024.09 - 2027.06</div>
+          <div class="item-title">武汉大学（保研）</div>
+          <div class="item-subtitle">应用经济学 · 金融学 · 硕士</div>
+          <ul>
+            <li>核心课程：金融工程理论 A、金融经济学 A+、金融风险管理 A</li>
+            <li>荣誉：武汉大学优秀学业一等奖学金、武汉大学研究生标兵、校优秀学生干部</li>
+            <li>证书：武汉大学优秀学业一等奖学金</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="time">2020.09 - 2024.06</div>
+          <div class="item-title">武汉大学</div>
+          <div class="item-subtitle">经济与管理学院 · 金融学 · 学士</div>
+          <ul>
+            <li>核心课程：概率论 99、金融工程 98、统计学 93、计量经济学 92</li>
+            <li>GPA：3.74 / 4.0（Top 23%）</li>
+            <li>荣誉：中金所杯三等奖、全英竞赛三等奖、校优秀学生干部</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2 class="section-title">实习经历</h2>
+      <div class="timeline">
+        <div class="card timeline-item">
+          <div class="time">2025.12 - 至今</div>
+          <div class="item-title">证量通科技 · 量化策略研究实习生</div>
+          <div class="item-subtitle">策略研发部门</div>
+          <ul>
+            <li>参与构建股票池清洗、风格信号、调仓 / 止损与 ETF 避险的策略闭环，开发大小盘 / 国债 ETF 轮动策略。</li>
+            <li>参与鳄鱼线 + AO 分型 + MACD 指数择时框架研究，补充 AMA / FRAMA 自适应均线专题。</li>
+            <li>参与平台迁移与接口验证，覆盖下单撤单、时间戳转换、分钟级对齐、复权与停牌逻辑校验。</li>
+          </ul>
+        </div>
+
+        <div class="card timeline-item">
+          <div class="time">2025.06 - 2025.09</div>
+          <div class="item-title">科大讯飞 · 大数据开发师</div>
+          <div class="item-subtitle">医疗研发部</div>
+          <ul>
+            <li>使用 DBeaver / IDEA 维护 50+ SQL 配置脚本，参与 ODS → DWD → ADS 链路加工。</li>
+            <li>完成 HIS / PH 等系统数据接入、宽表整合及测试 / 生产环境接口配置。</li>
+            <li>参与健康报表浏览器链路排查，定位字段缺失、重复与映射异常问题。</li>
+          </ul>
+        </div>
+
+        <div class="card timeline-item">
+          <div class="time">2025.02 - 2025.05</div>
+          <div class="item-title">WorldQuant 世坤 · 量化研究员</div>
+          <div class="item-subtitle">研究院</div>
+          <ul>
+            <li>维护因子挖掘 workflow，包括 step1 / step2 / step3 因子工厂、字段处理与表达式生成。</li>
+            <li>利用 API 实现批量异步回测、文本生成与 prune 剪枝，累计筛得 133 个有效因子。</li>
+          </ul>
+        </div>
+
+        <div class="card timeline-item">
+          <div class="time">2023.01 - 2023.05</div>
+          <div class="item-title">长江资本 · 行业研究员</div>
+          <div class="item-subtitle">投研部门</div>
+          <ul>
+            <li>参与 50G PON 与 ChatGPT / AIGC 行业研究，跟踪技术演进、标准 / 设备进展与产业链环节。</li>
+            <li>负责更新政策、券商研报、公司公告等公开信息，支持公司访谈与纪要输出。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">项目经历</h2>
+      <p class="section-desc">这里放适合展示在主页上的代表性项目，尽量突出方法、工具与结果。</p>
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-meta">2025.03 - 2025.06 · 量化策略建模</div>
+          <h3>众米基金实训项目</h3>
+          <p>
+            基于日频 OHLCV 构建量价与波动因子，搭建横截面收益预测框架。
+            使用随机森林与 PCA + Ridge 进行下一期收益预测，并完成选股、回测与绩效统计闭环。
+          </p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-meta">2022.12 - 2023.05 · Research Assistant</div>
+          <h3>Boston College 研究助理</h3>
+          <p>
+            使用 Python 清洗薪酬与公司数据，从年报和薪酬披露中提取治理 / 激励相关文本，构建 dummy 与分类变量，
+            并与财务绩效数据合并，支持后续实证分析。
+          </p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-meta">策略研究</div>
+          <h3>ETF 轮动与趋势择时</h3>
+          <p>
+            围绕大小盘 / 国债 ETF 轮动、指数择时与 CTA 执行框架开展研究，关注风格切换、趋势跟踪、风险控制与执行一致性。
+          </p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-meta">数据工程</div>
+          <h3>医疗数据数仓链路治理</h3>
+          <p>
+            参与医疗场景 ODS / DWD / ADS 数据治理，围绕主键映射、报表链路回溯与接口配置完成数据排查与治理工作。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">技能与证书</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>技术技能</h3>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">R</span>
+            <span class="chip">C</span>
+            <span class="chip">Data Analysis</span>
+            <span class="chip">Backtesting</span>
+            <span class="chip">Machine Learning</span>
+            <span class="chip">Research Writing</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>证书与能力</h3>
+          <ul>
+            <li>FRM（一级 / 二级已通过）</li>
+            <li>CET-6：599 分</li>
+            <li>具备扎实的数理统计与金融工程基础</li>
+            <li>能够进行计量建模、多源异构数据处理与量化策略研究</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">联系我</h2>
+      <div class="card">
+        <p>欢迎交流量化研究、数据分析、行业研究与求职相关内容。</p>
+        <p><strong>Email：</strong><a href="mailto:joychen@whu.edu.cn">joychen@whu.edu.cn</a></p>
+        <p><strong>Phone：</strong>18986274936</p>
+        <p><strong>GitHub：</strong><a href="https://github.com/your-github-username" target="_blank">https://github.com/your-github-username</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div>© 2026 陈嘉怡 · Built for GitHub Pages</div>
+  </footer>
+</body>
+</html>
